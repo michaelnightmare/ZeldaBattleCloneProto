@@ -23,7 +23,7 @@ Player::Player(std::string texturePath, sf::Vector2f pos, sf::Vector2f size)
 {   
 
 	anim = new Animator(this);
-	m_collision.setSize(sf::Vector2f(37.f,85.f));
+	m_collision.setSize(sf::Vector2f(37.f,55.f));
 	
 	BumpSound.setBuffer(BumpBuffer);
 	if (!BumpBuffer.loadFromFile("Audio/Bump.wav"))
@@ -76,7 +76,7 @@ void Player::UpdateCollision()
 {
 	body.setPosition(m_pos);
 	GameObject::Update(NULL, 0.0f);
-	m_collision.setPosition(body.getSize().x * .25f + body.getPosition().x, body.getPosition().y);
+	m_collision.setPosition(body.getSize().x * .25f + body.getPosition().x, body.getSize().y * .25f + body.getPosition().y);
 }
 
 void Player::CollidedWith(GameObject * other)
@@ -105,10 +105,30 @@ void Player::CollidedWith(GameObject * other)
 			collidedHorizontally = true;
 		}
 	}
+	////Enemy Collision
+	////------------------------------------------------------------
+	//Enemy* m_enemy = dynamic_cast<Enemy*>(other);
 
-
-
-
+	//bool collidedEVertically = false;
+	//bool collidedEHorizontally = false;
+	//if (m_enemy != nullptr)
+	//{
+	//	if (GetCollider().CheckCollision(other->GetCollider()))
+	//	{
+	//		m_pos.y -= m_movement.y;
+	//		m_vel.y = 0;
+	//		isgrounded = true;
+	//		UpdateCollision();
+	//		collidedEVertically = true;
+	//	}
+	//	if (GetCollider().CheckCollision(other->GetCollider()))
+	//	{
+	//		m_pos.x -= m_movement.x;
+	//		m_vel.x = 0;
+	//		UpdateCollision();
+	//		collidedEHorizontally = true;
+	//	}
+	//}
 
 }
 
@@ -178,9 +198,7 @@ void Player::HandleInput(float dt)
 	}
 
 	m_movement.x = playerSpeed * dt;
-	
 
-	
 		//Movement Up
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{

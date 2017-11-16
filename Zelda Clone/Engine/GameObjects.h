@@ -28,13 +28,13 @@ public:
 	sf::RectangleShape body;
 	//sf::Vector2f knockback;
 	//float gravity; 
-	sf::Vector2f m_vel;
+	sf::Vector2f m_vel;	
+	sf::Vector2f m_pos;
+	sf::Vector2f m_movement;
 protected:
 
 	Game* m_owner;
-	sf::Vector2f m_pos;
 	sf::Vector2f m_size;
-	sf::Vector2f m_movement;
 	bool m_destroyed;
 	float m_fireCooldown;
 

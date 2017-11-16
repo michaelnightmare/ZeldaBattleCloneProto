@@ -24,7 +24,7 @@ Game::Game()
 //Player
 	m_player = new Player("Sprites/PNG/PNW.png", sf::Vector2f(0, 0), sf::Vector2f (200,150));
 //enemy
-	m_enemy = new Enemy("Sprites/PNG/SlimeSS.png", sf::Vector2f(1000, 2200), sf::Vector2f(150, 150));
+	m_enemy = new Enemy("Sprites/PNG/SlimeSS.png", sf::Vector2f(1500, 2200), sf::Vector2f(150, 150));
 	AddObject(m_enemy);
 
 //level boardering 

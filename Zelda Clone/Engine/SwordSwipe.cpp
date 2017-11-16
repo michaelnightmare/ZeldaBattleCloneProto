@@ -8,7 +8,7 @@ SwordSwipe::SwordSwipe(sf::Vector2f pos, sf::Vector2f size)
 	, m_timeAlive(0.0f)
 	, SwipeSpeed(50.0F)
 {
-	body.setFillColor(sf::Color::Red);
+	body.setFillColor(sf::Color::Transparent);
 }
 
 void SwordSwipe::Update(sf::RenderWindow * window, float dt)

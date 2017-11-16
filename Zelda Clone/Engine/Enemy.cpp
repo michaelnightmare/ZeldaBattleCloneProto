@@ -74,19 +74,58 @@ void Enemy::CollidedWith(GameObject * other)
 		sf::RectangleShape lastPlayerPosition = m_player->GetLastFrameCollision();
 
 		// player runs into enemy
-		if (lastPlayerPosition.getPosition().x + lastPlayerPosition.getSize().x  > m_collision.getPosition().x  &&
-			(lastPlayerPosition.getPosition().x < (m_lastCollision.getPosition().x + m_lastCollision.getSize().x)) &&
-			lastPlayerPosition.getPosition().y < m_collision.getPosition().y)
+		if (lastPlayerPosition.getPosition().y + lastPlayerPosition.getSize().y  > m_collision.getPosition().y  &&
+			(lastPlayerPosition.getPosition().y < (m_lastCollision.getPosition().y + m_lastCollision.getSize().y)))
+
 		{
-			if (enemyAlive)
+			if (enemyAlive && m_owner->m_invulnerable<0.0f)
 			{
-				m_player->m_vel.y += -200.f;
 				m_owner->m_healthRemaining--;
-				m_owner->m_invulnerable = 8.0f;
-				
+				m_owner->m_invulnerable = 5.0f;
+				m_player->m_vel.y += -100.f;
 			}
 			
 		}
+
+		if (lastPlayerPosition.getPosition().y + lastPlayerPosition.getSize().y  > m_collision.getPosition().y &&
+			(lastPlayerPosition.getPosition().y > (m_lastCollision.getPosition().y + m_lastCollision.getSize().y)))
+
+		{
+			if (enemyAlive && m_owner->m_invulnerable<0.0f)
+			{
+
+				m_owner->m_healthRemaining--;
+				m_owner->m_invulnerable = 5.0f;
+				m_player->m_vel.y += +100.f;
+			}
+		}
+
+		if (lastPlayerPosition.getPosition().x + lastPlayerPosition.getSize().x  < m_collision.getPosition().x &&
+			(lastPlayerPosition.getPosition().x > (m_lastCollision.getPosition().x + m_lastCollision.getSize().x)))
+
+		{
+			if (enemyAlive && m_owner->m_invulnerable<0.0f)
+			{
+
+				m_owner->m_healthRemaining--;
+				m_owner->m_invulnerable = 5.0f;
+				m_player->m_vel.x += +100.f;
+			}
+		}
+
+		if (lastPlayerPosition.getPosition().x + lastPlayerPosition.getSize().x  > m_collision.getPosition().x &&
+			(lastPlayerPosition.getPosition().x > (m_lastCollision.getPosition().x + m_lastCollision.getSize().x)))
+
+		{
+			if (enemyAlive && m_owner->m_invulnerable<0.0f)
+			{
+
+				m_owner->m_healthRemaining--;
+				m_owner->m_invulnerable = 5.0f;
+				m_player->m_vel.x += -100.f;
+			}
+		}
+
 	
 		// enemy hits player
 		else
@@ -96,16 +135,13 @@ void Enemy::CollidedWith(GameObject * other)
 			{
 				if (m_owner->m_invulnerable < 0.0f &&m_owner->m_healthRemaining >= 1)
 				{
-
 					if (m_player->IsGrounded() && enemyAlive)
 					{
 						m_owner->m_healthRemaining--;
-						m_owner->m_invulnerable = 10.0f;
+						m_owner->m_invulnerable = 5.0f;
 						PlayerHurtSound.play();
 					}
-				
 				}
-
 			}
 		
 		}
