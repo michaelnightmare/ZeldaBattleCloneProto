@@ -12,6 +12,8 @@ Enemy::Enemy(std::string texturePath, sf::Vector2f pos, sf::Vector2f size)
 	, enemyPEnd(m_pos.x - 50, 0)
 	, patrolTimer(3.f)
 	, enemyDead(false)
+
+	
 	
 	
 
@@ -49,8 +51,7 @@ void Enemy::Update(sf::RenderWindow * window, float dt)
 
 	
 	Patrol(dt);
-
-
+	m_owner->m_Einvulnerable -= dt;
 
 	//Update animator
 	anim->Update(window, dt);
@@ -68,9 +69,14 @@ void Enemy::CollidedWith(GameObject * other)
 	//--------------------------------------------------------
 	Player *m_player = dynamic_cast<Player*>(other);
 
+	
+
+
 	if (m_player != nullptr)
 	{
 				
+		
+
 		sf::RectangleShape lastPlayerPosition = m_player->GetLastFrameCollision();
 
 		// player runs into enemy
@@ -82,7 +88,9 @@ void Enemy::CollidedWith(GameObject * other)
 			{
 				m_owner->m_healthRemaining--;
 				m_owner->m_invulnerable = 5.0f;
-				m_player->m_vel.y += -100.f;
+				m_owner->m_knockbacktimer = 1.5f;
+				m_player->m_vel.y += -100.f * 2;
+			
 			}
 			
 		}
@@ -93,11 +101,12 @@ void Enemy::CollidedWith(GameObject * other)
 		{
 			if (enemyAlive && m_owner->m_invulnerable<0.0f)
 			{
-
 				m_owner->m_healthRemaining--;
 				m_owner->m_invulnerable = 5.0f;
-				m_player->m_vel.y += +100.f;
+				m_owner->m_knockbacktimer = 1.5f;
+				m_player->m_vel.y += 100.f *2 ;
 			}
+			
 		}
 
 		if (lastPlayerPosition.getPosition().x + lastPlayerPosition.getSize().x  < m_collision.getPosition().x &&
@@ -109,12 +118,13 @@ void Enemy::CollidedWith(GameObject * other)
 
 				m_owner->m_healthRemaining--;
 				m_owner->m_invulnerable = 5.0f;
-				m_player->m_vel.x += +100.f;
+				m_owner->m_knockbacktimer = 1.5f;
+				m_player->m_vel.x += +100.f * 2;
 			}
 		}
 
-		if (lastPlayerPosition.getPosition().x + lastPlayerPosition.getSize().x  > m_collision.getPosition().x &&
-			(lastPlayerPosition.getPosition().x > (m_lastCollision.getPosition().x + m_lastCollision.getSize().x)))
+		if (lastPlayerPosition.getPosition().x + lastPlayerPosition.getSize().x  < m_collision.getPosition().x &&
+			(lastPlayerPosition.getPosition().x < (m_lastCollision.getPosition().x + m_lastCollision.getSize().x)))
 
 		{
 			if (enemyAlive && m_owner->m_invulnerable<0.0f)
@@ -122,7 +132,8 @@ void Enemy::CollidedWith(GameObject * other)
 
 				m_owner->m_healthRemaining--;
 				m_owner->m_invulnerable = 5.0f;
-				m_player->m_vel.x += -100.f;
+				m_owner->m_knockbacktimer = 1.5f;
+				m_player->m_vel.x += -100.f * 2;
 			}
 		}
 

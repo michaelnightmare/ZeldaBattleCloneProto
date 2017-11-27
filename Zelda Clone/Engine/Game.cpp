@@ -12,9 +12,12 @@ Game::Game()
 	: m_gameOver(false)
 	, m_timeUntilRespawn(.01f)
 	, m_livesRemaining(2)
-	, m_invulnerable(1.0f)
+	, m_invulnerable(5.0f)
+	, m_Einvulnerable(2.0f)
+	, m_knockbacktimer(0.0f)
 	, m_healthRemaining(4)
 	, m_drawCollision(false)
+	, m_Ehealth(50)
 	, m_bossHealthRemaining(10)
 	, m_win(false)
 	
@@ -25,6 +28,9 @@ Game::Game()
 	m_player = new Player("Sprites/PNG/PNW.png", sf::Vector2f(0, 0), sf::Vector2f (200,150));
 //enemy
 	m_enemy = new Enemy("Sprites/PNG/SlimeSS.png", sf::Vector2f(1500, 2200), sf::Vector2f(150, 150));
+	AddObject(m_enemy);
+
+	m_enemy = new Enemy("Sprites/PNG/SlimeSS.png", sf::Vector2f(1950, 2500), sf::Vector2f(150, 150));
 	AddObject(m_enemy);
 
 //level boardering 
@@ -78,6 +84,13 @@ Game::Game()
 
 void Game::Update(sf::RenderWindow * window, float dt)
 {
+
+	if (m_knockbacktimer != 0)
+	{
+		m_knockbacktimer -= dt;
+	}
+
+
 
 
 	//ReSpawn Timer

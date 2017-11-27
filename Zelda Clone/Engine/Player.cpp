@@ -47,6 +47,15 @@ void Player::Update(sf::RenderWindow * window, float dt)
 {
 	
 	m_owner->m_invulnerable -= dt;
+	m_owner->m_knockbacktimer -= dt; 
+
+	if (m_owner->m_knockbacktimer <= 0.0f)
+	{
+		m_vel.y = 0.f;
+		m_vel.x = 0.f;
+
+	}
+
 
 	//Restrain();
 
@@ -105,30 +114,6 @@ void Player::CollidedWith(GameObject * other)
 			collidedHorizontally = true;
 		}
 	}
-	////Enemy Collision
-	////------------------------------------------------------------
-	//Enemy* m_enemy = dynamic_cast<Enemy*>(other);
-
-	//bool collidedEVertically = false;
-	//bool collidedEHorizontally = false;
-	//if (m_enemy != nullptr)
-	//{
-	//	if (GetCollider().CheckCollision(other->GetCollider()))
-	//	{
-	//		m_pos.y -= m_movement.y;
-	//		m_vel.y = 0;
-	//		isgrounded = true;
-	//		UpdateCollision();
-	//		collidedEVertically = true;
-	//	}
-	//	if (GetCollider().CheckCollision(other->GetCollider()))
-	//	{
-	//		m_pos.x -= m_movement.x;
-	//		m_vel.x = 0;
-	//		UpdateCollision();
-	//		collidedEHorizontally = true;
-	//	}
-	//}
 
 }
 
@@ -285,14 +270,6 @@ void Player::HandleInput(float dt)
 
 }
 
-void Player::Restrain()
-{
-	//character cant leave the screen to the left
-	//if (body.getPosition().x < -35)
-	//{
-	//	m_pos.x = -35;
-	//}
-}
 
 void Player::Draw(sf::RenderWindow* window)
 {

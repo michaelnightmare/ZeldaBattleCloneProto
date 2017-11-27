@@ -26,12 +26,11 @@ public:
 	void ToggleDrawCollision() {m_drawCollision = !m_drawCollision;}
 	bool DrawCollision() { return m_drawCollision;  }
 	int m_healthRemaining;
+	int m_Ehealth;
 	int m_bossHealthRemaining;
 	float m_invulnerable;
-
-
-
-
+	float m_Einvulnerable;
+	float m_knockbacktimer;
 
 private:
 	Player* m_player;
@@ -43,14 +42,12 @@ private:
 	LevelHazards* m_levelhazards;
 	Boss* m_boss;
 
-
 	sf::Font m_mainFont;
 	bool m_gameOver;
 	
 	int m_livesRemaining;
 	float m_timeUntilRespawn;
 	bool m_win;
-
 	bool m_drawCollision;
 
 	

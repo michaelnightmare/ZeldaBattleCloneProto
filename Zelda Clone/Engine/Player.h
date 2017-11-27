@@ -18,16 +18,14 @@ public:
 	bool IsGrounded() { return isgrounded; }
 	Collider GetCollider() { return Collider(body); }
 	void HandleInput(float dt);
-	void Restrain();
 	void UpdateCollision();
-	
 	sf::SoundBuffer JumpBuffer;
 	sf::Sound JumpSound;
 	sf::SoundBuffer BumpBuffer;
 	sf::Sound BumpSound;
 	
 	bool playerHit;
-	bool getInShip;
+	
 	
 protected:
 

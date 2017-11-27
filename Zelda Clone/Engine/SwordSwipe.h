@@ -11,6 +11,7 @@ public:
 	virtual void CollidedWith(GameObject* other);
 	float m_timeAlive;
 	float SwipeSpeed;
+	
 
 protected:
 
